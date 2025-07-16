@@ -1,24 +1,11 @@
 import { fetchCompanies } from '@/lib/api';
-import { Company } from '@/lib/data';
-import CompanyCard from '@/components/CompanyCard';
-import CompanyTable from '@/components/CompanyTable';
-import CompanyDetail from '@/components/CompanyDetail';
-import FilterPanel from '@/components/FilterPanel';
-import AnimatedButton from '@/components/AnimatedButton';
 import ClientPage from '@/components/ClientPage';
-import {
-  Box,
-  Container,
-  SimpleGrid,
-  HStack,
-  VStack,
-  Heading,
-} from '@chakra-ui/react';
 
 export default async function Page({ searchParams }: { searchParams: any }) {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
-  const companies: Company[] = await fetchCompanies(baseUrl);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/companies`, { cache: 'no-store' });
+  if (!res.ok) throw new Error('Failed to fetch company list');
+  const companies = await res.json();
+
   return <ClientPage companies={companies} searchParams={searchParams} />;
 }
