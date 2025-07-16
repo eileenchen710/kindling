@@ -44,7 +44,7 @@ export default function CompanyTable({ companies, onRowClick }: Props) {
                 }
               }}
               _hover={{
-                bg: '#fefefe',
+                bg: useColorModeValue('#fefefe', '#23272f'),
                 cursor: 'pointer',
               }}
               style={{ transition: 'box-shadow 0.2s, border 0.2s' }}

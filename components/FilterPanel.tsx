@@ -123,8 +123,8 @@ export default function FilterPanel({
             onClick={() => setShowAll((v) => !v)}
             style={{
               color: '#1FA9FF',
-              background: useColorModeValue('#f3f6fa', '#23272f'),
-              border: '1.5px solid #1FA9FF',
+              background: useColorModeValue('#f3f6fa', 'transparent'),
+              border: '2px solid #1FA9FF',
               borderRadius: 999,
               padding: '0.32em 1.05em',
               fontWeight: 600,

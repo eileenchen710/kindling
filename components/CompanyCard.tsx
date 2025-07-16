@@ -21,25 +21,28 @@ interface Props {
 const MotionCard = motion(Card);
 
 export default function CompanyCard({ company, onClick }: Props) {
-  const cardBg = useColorModeValue('white', 'black');
-  const textColor = useColorModeValue('gray.900', 'gray.100');
-  const taglineColor = useColorModeValue('gray.500', 'gray.400');
-  const border = useColorModeValue('1px solid #ececec', 'none');
+  const cardBg = useColorModeValue('white', '#090909');
+  const textColor = useColorModeValue('gray.900', 'white');
+  const taglineColor = useColorModeValue('gray.500', 'gray.100');
+  const border = useColorModeValue('1px solid #1FA9FF', '2px solid #fff');
+  const boxShadow = useColorModeValue(
+    '0 4px 24px rgba(36,152,236,0.10)',
+    '0 4px 24px rgba(0,0,0,0.45)'
+  );
 
   return (
     <MotionCard
-      whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(36,152,236,0.10)' }}
+      whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(36,152,236,0.18)' }}
       transition={{ type: 'spring', stiffness: 300 }}
       borderRadius="xl"
       bg={cardBg}
       border={border}
+      boxShadow={boxShadow}
       cursor="pointer"
       onClick={onClick}
       _hover={{
-        borderColor: 'rgb(36,152,236)',
         bg: useColorModeValue('white', '#000'),
       }}
-      boxShadow="none"
       w="100%"
     >
       <CardBody p={5}>
@@ -66,6 +69,7 @@ export default function CompanyCard({ company, onClick }: Props) {
               color={taglineColor}
               noOfLines={1}
               fontWeight={600}
+              marginBottom={2}
               as="div"
             >
               <Tooltip

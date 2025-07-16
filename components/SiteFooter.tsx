@@ -17,7 +17,7 @@ export default function SiteFooter() {
         transition: 'background 0.25s cubic-bezier(.4,0,.2,1)',
       }}
     >
-      <Text fontSize="sm" fontWeight={500} color={useColorModeValue('gray.600', 'gray.400')}>
+      <Text fontSize="sm" fontWeight={600} color={useColorModeValue('gray.600', 'gray.400')}>
         © {new Date().getFullYear()} CompanyDemo. All rights reserved.
       </Text>
     </Box>

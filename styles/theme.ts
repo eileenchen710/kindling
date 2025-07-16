@@ -7,6 +7,16 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
+  styles: {
+    global: {
+      body: {
+        bg: 'white',
+        _dark: {
+          bg: 'linear-gradient(to bottom, #000,rgb(20, 20, 20))',
+        },
+      },
+    },
+  },
   colors: {
     brand: {
       500: 'rgb(36, 152, 236)',
