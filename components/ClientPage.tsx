@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { Company } from '@/lib/data';
 import CompanyCard from './CompanyCard';
 import CompanyTable from './CompanyTable';
@@ -17,16 +17,13 @@ import {
 
 function getCompanyIdFromParams(searchParams: any): string | null {
   if (typeof window !== 'undefined') {
-    // On client, use window.location.search
     const params = new URLSearchParams(window.location.search);
     return params.get('company');
   }
-  // On server or if already URLSearchParams
   if (searchParams && typeof searchParams.get === 'function') {
     return searchParams.get('company');
   }
   if (typeof searchParams === 'object') {
-    // Next.js may pass a plain object
     return searchParams.company || null;
   }
   return null;
@@ -44,6 +41,8 @@ export default function ClientPage({
   const [filter, setFilter] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const nextSearchParams = useSearchParams();
   const companyId = getCompanyIdFromParams(searchParams);
 
   const filteredCompanies = useMemo(() => {
@@ -59,8 +58,59 @@ export default function ClientPage({
         setModalOpen(true);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [companyId, companies]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const focus = params.get('focus');
+      if (focus) {
+        setFilter(focus.split(',').filter(Boolean));
+      }
+    } else if (searchParams && typeof searchParams.get === 'function') {
+      const focus = searchParams.get('focus');
+      if (focus) {
+        setFilter(focus.split(',').filter(Boolean));
+      }
+    } else if (typeof searchParams === 'object' && searchParams.focus) {
+      setFilter(
+        Array.isArray(searchParams.focus)
+          ? searchParams.focus
+          : searchParams.focus.split(',')
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (filter.length > 0) {
+        params.set('focus', filter.join(','));
+      } else {
+        params.delete('focus');
+      }
+      if (selected) {
+        params.set('company', selected.id);
+      } else {
+        params.delete('company');
+      }
+      const url = `${pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', url);
+    } else if (router && typeof router.replace === 'function') {
+      const params = new URLSearchParams(nextSearchParams.toString());
+      if (filter.length > 0) {
+        params.set('focus', filter.join(','));
+      } else {
+        params.delete('focus');
+      }
+      if (selected) {
+        params.set('company', selected.id);
+      } else {
+        params.delete('company');
+      }
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  }, [filter, selected]);
 
   const handleOpenModal = (company: Company) => {
     setSelected(company);
@@ -70,7 +120,16 @@ export default function ClientPage({
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelected(null);
-    router.replace('/', { scroll: false });
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      params.delete('company');
+      const url = `${pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', url);
+    } else if (router && typeof router.replace === 'function') {
+      const params = new URLSearchParams(nextSearchParams.toString());
+      params.delete('company');
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
   };
 
   return (
@@ -111,6 +170,7 @@ export default function ClientPage({
           value={filter}
           onChange={(v) => setFilter(v as string[])}
           label="Focus Filter"
+          resultCount={filteredCompanies.length}
         />
         {view === 'card' ? (
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6}>

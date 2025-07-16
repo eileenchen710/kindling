@@ -5,7 +5,6 @@
 
 A modern, mobile-responsive company showcase platform, built using a **frontend-backend split architecture** powered by **Next.js 13 (App Router)**, **TypeScript**, **Chakra UI**, and **Tailwind CSS**.
 
-Designed for interview demos, design showcases, and best practice references. Fully interactive with animation, accessibility support, and clean, tasteful UI.
 
 ---
 
@@ -27,6 +26,7 @@ frontend/
 
 * **Mock API Integration**: All company data is served from a local API (`app/api/companies/route.ts`) for clean separation of concerns.
 * **Fully Responsive**: Mobile-first design, works beautifully across phone, tablet, and desktop.
+* **Dark Mode Support**: Users can toggle between light and dark modes with Chakra UI’s useColorMode, preserving theme preference.
 * **Logo Preloading + Fallbacks**: Company logos support preload and auto-fallback if load fails.
 * **Animated Buttons**: A snappy `AnimatedButton` component with elastic hover/tap effects.
 * **Custom Cursor**: Adds an interactive `cursor-dot` for a playful touch.
@@ -70,10 +70,6 @@ npm start
 
 ## ☁️ Deploy to Vercel
 
-1. Create an account on [Vercel](https://vercel.com/)
-2. Link your GitHub repo
-3. Set `frontend` as the root directory
-4. Or deploy manually from CLI:
 
 ```bash
 npm i -g vercel
@@ -118,7 +114,6 @@ Here are a few ways you can take this even further:
 
 | Area                          | Suggestion                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------- |
-| **Dark Mode**                 | Add color mode toggle with Chakra UI’s built-in `useColorMode`                  |
 | **Pagination / Virtual List** | For large datasets, use virtualization (e.g. `react-virtual`)                   |
 | **Search Function**           | Add fuzzy search with debounce (e.g. `fuse.js`)                                 |
 | **Animations**                | Add entry animations with `framer-motion` for modals and cards                  |

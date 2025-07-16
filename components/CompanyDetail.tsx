@@ -48,10 +48,16 @@ export default function CompanyDetail({ company, isOpen, onClose }: Props) {
                 <HStack spacing={4}>
                   <Image
                     src={company.logo}
-                    alt={company.name}
-                    boxSize="56px"
+                    alt={`${company.name} logo`}
+                    boxSize={{ base: '80px', md: '120px' }}
                     borderRadius="md"
+                    objectFit="contain"
                     bg="none"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/file.svg';
+                    }}
+                    aria-label={`${company.name} logo`}
                   />
                   <Box>
                     <Text fontWeight={700} color={mainText}>

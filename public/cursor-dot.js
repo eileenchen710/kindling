@@ -1,4 +1,3 @@
-// cursor-dot.js
 (function () {
   const dot = document.createElement('div');
   dot.style.position = 'fixed';
@@ -56,22 +55,17 @@
     lastTargetY = e.clientY;
   });
 
-  // Add button hover effect for cursor dot, expanding from mouse enter position
   function handleButtonEnter(e) {
-    // 获取鼠标相对button的位置
     const btn = e.currentTarget;
     const rect = btn.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    // 设置CSS变量供按钮用
     btn.style.setProperty('--hover-x', `${x}px`);
     btn.style.setProperty('--hover-y', `${y}px`);
-    // 放大圆点
     dot.style.transition = 'left 0.08s linear, top 0.08s linear, background 0.2s, transform 0.18s cubic-bezier(.4,0,.2,1)';
     dot.style.transform = 'translate(-50%, -50%) scale(2)';
   }
   function handleButtonLeave(e) {
-    // 恢复圆点
     dot.style.transition = 'left 0.08s linear, top 0.08s linear, background 0.2s, transform 0.18s cubic-bezier(.4,0,.2,1)';
     dot.style.transform = 'translate(-50%, -50%) scale(1)';
   }
@@ -86,9 +80,7 @@
     });
   }
 
-  // Initial and dynamic button listener binding
   addButtonListeners();
-  // Observe DOM for new buttons (e.g., React re-render)
   const btnObserver = new MutationObserver(addButtonListeners);
   btnObserver.observe(document.body, { childList: true, subtree: true });
 

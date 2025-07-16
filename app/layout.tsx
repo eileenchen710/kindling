@@ -4,6 +4,7 @@ import ChakraProviders from './ChakraProviders';
 import ColorModeToggle from '@/components/ColorModeToggle';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Company List Demo',
@@ -22,7 +23,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
-        <script src="/cursor-dot.js" defer></script>
+        <Script src="/cursor-dot.js" strategy="afterInteractive" />
       </head>
       <body className="font-sans">
         <ChakraProviders>
