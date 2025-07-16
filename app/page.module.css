@@ -3,35 +3,20 @@
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 48px 16px;
+  gap: 32px;
+  background: #f7fafc;
+  font-family: var(--font-geist-sans, 'Inter', sans-serif);
 }
 
 .main {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  grid-row-start: 2;
+  flex: 1;
 }
 
 .main ol {
@@ -107,6 +92,18 @@ a.secondary {
   flex-shrink: 0;
 }
 
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
@@ -127,10 +124,15 @@ a.secondary {
 
 @media (max-width: 600px) {
   .page {
-    padding: 32px;
-    padding-bottom: 80px;
+    padding: 16px 4px;
+    gap: 16px;
   }
-
+  .main {
+    gap: 16px;
+  }
+  .card {
+    padding: 12px;
+  }
   .main {
     align-items: center;
   }
