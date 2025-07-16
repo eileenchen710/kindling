@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Company List Demo
 
-First, run the development server:
+## 🧭 Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A modern, mobile-responsive company showcase platform, built using a **frontend-backend split architecture** powered by **Next.js 13 (App Router)**, **TypeScript**, **Chakra UI**, and **Tailwind CSS**.
+
+Designed for interview demos, design showcases, and best practice references. Fully interactive with animation, accessibility support, and clean, tasteful UI.
+
+---
+
+## 📁 Project Structure
+
+```
+frontend/
+  app/                # Next.js App Router directory: pages, layouts, API routes
+  components/         # Reusable UI components (cards, tables, header, etc.)
+  lib/                # API utilities and data helpers
+  public/             # Static assets (logos, SVGs, scripts)
+  styles/             # Global styles and theme config
+  ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Mock API Integration**: All company data is served from a local API (`app/api/companies/route.ts`) for clean separation of concerns.
+* **Fully Responsive**: Mobile-first design, works beautifully across phone, tablet, and desktop.
+* **Logo Preloading + Fallbacks**: Company logos support preload and auto-fallback if load fails.
+* **Animated Buttons**: A snappy `AnimatedButton` component with elastic hover/tap effects.
+* **Custom Cursor**: Adds an interactive `cursor-dot` for a playful touch.
+* **Frosted Glass Header**: Sticky glassmorphism top nav enhances clarity and polish.
+* **Modal via URL**: Open a company detail modal directly via query param (`/?company=openai`), useful for sharing.
+* **Filtering**: Filter companies by focus areas (e.g. AI, Fintech) with smooth UI.
+* **Card + Table Views**: Toggle between card grid and data table with a single click.
+* **SSR for First Render**: Homepage is server-rendered for speed and SEO.
+* **Lazy Image Loading**: All images are lazy-loaded, with fallbacks on failure.
+* **Accessibility (a11y)**: Full keyboard navigation, semantic ARIA tags, alt text for all images.
+* **Vercel Ready**: One-click deployment with automatic builds and previews.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔧 Technical Highlights
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Next.js 13 App Router with hybrid SSR + CSR rendering
+* Full TypeScript setup with strict types
+* Chakra UI + Tailwind CSS combo for flexibility + beauty
+* Smooth animations with Framer Motion & Chakra transitions
+* Mobile-first responsive layouts
+* Clean folder structure, scalable architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚙️ Getting Started
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# Install dependencies
+npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start local development
+npm run dev
+
+# Build for production
+npm run build
+npm start
+```
+
+---
+
+## ☁️ Deploy to Vercel
+
+1. Create an account on [Vercel](https://vercel.com/)
+2. Link your GitHub repo
+3. Set `frontend` as the root directory
+4. Or deploy manually from CLI:
+
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+---
+
+## ♿ Accessibility & Interaction
+
+* **Keyboard Friendly**: Tab/Enter/Space support for all interactive elements
+* **Semantic ARIA Labels**: All buttons, modals, and links are labeled for screen readers
+* **Descriptive Links**: Clear link text to improve readability
+* **Images**: All images include `alt` tags and handle fallback scenarios gracefully
+
+---
+
+## 🧩 Main Pages & Components
+
+* `app/page.tsx`: Homepage with SSR, view toggle, filtering, modal sync
+* `components/CompanyCard.tsx`: Responsive card with animation and a11y
+* `components/CompanyTable.tsx`: Table view with keyboard support
+* `components/CompanyDetail.tsx`: Modal with synced URL routing
+* `components/FilterPanel.tsx`: Focus area filters
+* `components/AnimatedButton.tsx`: Custom button with feedback
+* `components/SiteHeader.tsx`: Frosted sticky header
+* `public/cursor-dot.js`: Custom cursor effect
+
+---
+
+## 📌 Additional Notes
+
+* Multi-language support is easily extendable
+* Prettier configured for consistent code style
+* Built with best practices in DX (Developer Experience) and UX
+
+---
+
+## ✅ Potential Improvements & Suggestions
+
+Here are a few ways you can take this even further:
+
+| Area                          | Suggestion                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| **Dark Mode**                 | Add color mode toggle with Chakra UI’s built-in `useColorMode`                  |
+| **Pagination / Virtual List** | For large datasets, use virtualization (e.g. `react-virtual`)                   |
+| **Search Function**           | Add fuzzy search with debounce (e.g. `fuse.js`)                                 |
+| **Animations**                | Add entry animations with `framer-motion` for modals and cards                  |
+| **Unit Testing**              | Add basic component tests using `Jest` + `Testing Library`                      |
+| **CMS Integration**           | Simulate dynamic company data from e.g. `Notion`, `Sanity`, or mock JSON server |
+| **Company Comparison View**   | Allow multi-card selection and side-by-side comparison                          |
+| **Analytics Event Log**       | Log modal views or filters applied to simulate real-world usage insights        |
+| **Performance Tweak**         | Use `next/image` for automatic image optimization and CDN caching               |
+
+---
+
+> If I had more time, I would integrate this with a real backend or CMS and add animations to onboarding flows to simulate a full SaaS experience.

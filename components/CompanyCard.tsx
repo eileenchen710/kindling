@@ -7,10 +7,12 @@ import {
   HStack,
   Box,
   useColorModeValue,
+  Tooltip,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Company } from '@/lib/data';
 import AnimatedButton from './AnimatedButton';
+import { useRef } from 'react';
 
 interface Props {
   company: Company;
@@ -24,9 +26,11 @@ export default function CompanyCard({ company, onClick }: Props) {
   const textColor = useColorModeValue('gray.900', 'gray.100');
   const taglineColor = useColorModeValue('gray.500', 'gray.400');
   const border = useColorModeValue('1px solid #ececec', 'none');
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <MotionCard
+      ref={cardRef}
       whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(36,152,236,0.10)' }}
       transition={{ type: 'spring', stiffness: 300 }}
       borderRadius="xl"
@@ -40,16 +44,30 @@ export default function CompanyCard({ company, onClick }: Props) {
       }}
       boxShadow="none"
       w="100%"
+      tabIndex={0}
+      role="button"
+      aria-label={`查看${company.name}详情`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
     >
       <CardBody p={5}>
         <HStack spacing={4} align="center">
           <Image
             src={company.logo}
-            alt={company.name}
+            alt={`公司${company.name}的logo`}
             boxSize="72px"
             borderRadius="md"
             objectFit="contain"
             bg="none"
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/file.svg';
+            }}
+            aria-label={`${company.name} logo`}
           />
           <Box flex={1} minW={0}>
             <Text
@@ -65,8 +83,27 @@ export default function CompanyCard({ company, onClick }: Props) {
               color={taglineColor}
               noOfLines={1}
               fontWeight={600}
+              as="div"
             >
-              {company.tagline}
+              <Tooltip
+                label={company.tagline}
+                isDisabled={company.tagline.length <= 40}
+                hasArrow
+                placement="top"
+              >
+                <span
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100%',
+                  }}
+                >
+                  {company.tagline}
+                </span>
+              </Tooltip>
             </Text>
             <HStack spacing={1} mt={1} flexWrap="wrap">
               {company.focus.map((tag) => (
@@ -84,4 +121,3 @@ export default function CompanyCard({ company, onClick }: Props) {
     </MotionCard>
   );
 }
-       
