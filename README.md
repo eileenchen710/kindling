@@ -3,7 +3,7 @@
 
 ## 🧭 Project Overview
 
-A modern, mobile-responsive company showcase platform, built using a **frontend-backend split architecture** powered by **Next.js 13 (App Router)**, **TypeScript**, **Chakra UI**, and **Tailwind CSS**.
+A modern, mobile-responsive company showcase platform, built using a **frontend-backend split architecture** powered by **Next.js 15.4.1 (App Router)**, **TypeScript**, **Chakra UI**, and **Tailwind CSS**.
 
 
 ---
